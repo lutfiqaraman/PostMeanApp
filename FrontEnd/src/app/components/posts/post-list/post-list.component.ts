@@ -11,11 +11,11 @@ export class PostListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.renderPost();
+    this.renderPosts();
   }
 
   // Render the post
-  renderPost() {
+  renderPosts() {
     return this.posts;
   }
 
