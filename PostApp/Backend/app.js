@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.use('/api/posts',(req, res, next) => {
-  const postList = [
+  const listOfPosts = [
     {
       id: 'fad123d3w',
       title: 'First Post',
@@ -20,7 +20,7 @@ app.use('/api/posts',(req, res, next) => {
     }
   ];
 
-  res.status(200).json(postList);
+  res.status(200).json(listOfPosts);
 });
 
 module.exports = app;
