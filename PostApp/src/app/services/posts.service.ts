@@ -4,13 +4,13 @@ import { Subject } from 'rxjs';
 import { IPost } from '../models/post.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostsService {
   private postsList: IPost[] = [];
   private postsUpdate = new Subject<IPost[]>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPosts() {
     const url = 'http://localhost:3000/api/posts';
@@ -25,7 +25,10 @@ export class PostsService {
   }
 
   addPost(post: IPost) {
-    this.postsList.push(post);
-    this.postsUpdate.next([...this.postsList]);
+    const url = 'http://localhost:3000/api/posts';
+    this.http.post<IPost[]>(url, post).subscribe((data) => {
+      this.postsList.push(post);
+      this.postsUpdate.next([...this.postsList]);
+    });
   }
 }
