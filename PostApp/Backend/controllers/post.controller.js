@@ -1,8 +1,14 @@
+const Post = require("../models/post");
+
 // Posts - Create a new post
 exports.create = async (req, res) => {
-  const post = req.body;
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content,
+  });
+
   await res.status(201).json(post);
-}
+};
 
 // Posts - Get all posts
 exports.getAllPosts = async (req, res) => {
@@ -24,5 +30,5 @@ exports.getAllPosts = async (req, res) => {
     },
   ];
 
-  res.status(200).json(listOfPosts);
-}
+  await res.status(200).json(listOfPosts);
+};
