@@ -6,7 +6,8 @@ exports.create = async (req, res) => {
     title: req.body.title,
     content: req.body.content,
   });
-
+  
+  post.save();
   await res.status(201).json(post);
 };
 
