@@ -13,23 +13,9 @@ exports.create = async (req, res) => {
 
 // Posts - Get all posts
 exports.getAllPosts = async (req, res) => {
-  const listOfPosts = [
-    {
-      id: "fad123d3w",
-      title: "First Post",
-      content: "The content of the first post from the server side",
-    },
-    {
-      id: "gfh145ert",
-      title: "Second Post",
-      content: "The content of the second post from the server side",
-    },
-    {
-      id: "sfe956qrs",
-      title: "Third Post",
-      content: "The content of the third post from the server side",
-    },
-  ];
+  await Post.find().then(data => {
+    res.status(200).json(data);
+  });
 
-  await res.status(200).json(listOfPosts);
+  
 };
