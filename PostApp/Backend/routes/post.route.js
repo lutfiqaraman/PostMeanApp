@@ -3,5 +3,5 @@ module.exports = app => {
 
   app.post("/api/posts", Post.create);
   app.get("/api/posts", Post.getAllPosts);
-  
+  app.delete("/api/posts/:id", Post.deletePost)
 }

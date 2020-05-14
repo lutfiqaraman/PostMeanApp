@@ -21,7 +21,7 @@ export class PostsService {
         map((postData) => {
           return postData.map((post) => {
             return {
-              id: post.id,
+              _id: post._id,
               title: post.title,
               content: post.content,
             };
@@ -40,8 +40,19 @@ export class PostsService {
 
   addPost(post: IPost) {
     const url = 'http://localhost:3000/api/posts';
-    this.http.post<IPost[]>(url, post).subscribe((data) => {
+
+    this.http.post<IPost[]>(url, post).subscribe(() => {
       this.postsList.push(post);
+      this.postsUpdate.next([...this.postsList]);
+    });
+  }
+
+  deletePost(postID: any) {
+    const url = 'http://localhost:3000/api/posts/' + postID;
+
+    this.http.delete(url).subscribe(() => {
+      const updatePosts = this.postsList.filter(post => post._id !== postID);
+      this.postsList = updatePosts;
       this.postsUpdate.next([...this.postsList]);
     });
   }
