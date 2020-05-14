@@ -7,8 +7,8 @@ exports.create = async (req, res) => {
     content: req.body.content,
   });
   
-  post.save();
-  await res.status(201).json(post);
+  await post.save();
+  res.status(201).json(post);
 };
 
 // Posts - Get all posts

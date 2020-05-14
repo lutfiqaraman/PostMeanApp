@@ -1,14 +1,15 @@
-const mongoose = require("mongoose");
 require("dotenv").config({ path: "../config/.env" });
 
+const mongoose = require("mongoose");
 const username = process.env.MONGOUSER;
 const password = process.env.MONGOPASSWORD;
 
 exports.connection = () => {
   mongoose
     .connect(
-      `mongodb+srv://${username}:${password}@cluster0-eqore.mongodb.net/postdb?retryWrites=true&w=majority`,
+      `mongodb+srv://${username}:${password}@cluster0-eqore.mongodb.net/`,
       {
+        dbName: "postDB",
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }
