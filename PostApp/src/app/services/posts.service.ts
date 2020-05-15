@@ -13,6 +13,7 @@ export class PostsService {
 
   constructor(private http: HttpClient) {}
 
+  // Post Service - get all posts
   getPosts() {
     const url = 'http://localhost:3000/api/posts';
     this.http
@@ -34,18 +35,17 @@ export class PostsService {
       });
   }
 
+  // Post Service - get a post
   getPost(id: string) {
     return {...this.postsList.find(p => p.id === id)};
   }
 
+  // Post listener
   getPostUpdateListener() {
     return this.postsUpdate.asObservable();
   }
 
-  updatePost(post: IPost) {
-
-  }
-
+  // Post Service - Add a new post
   addPost(post: IPost) {
     const url = 'http://localhost:3000/api/posts';
 
@@ -56,6 +56,12 @@ export class PostsService {
     });
   }
 
+  // Post Service - Update an existing post
+  updatePost(post: IPost) {
+
+  }
+
+  // Post Service - Delete a post
   deletePost(postID: any) {
     const url = 'http://localhost:3000/api/posts/' + postID;
 
