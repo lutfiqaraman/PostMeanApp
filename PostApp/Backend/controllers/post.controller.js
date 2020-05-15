@@ -7,8 +7,11 @@ exports.create = async (req, res) => {
     content: req.body.content,
   });
   
-  await post.save();
-  res.status(201).json(post);
+  await post.save().then((result) => {
+    res.status(201).json({
+      postID: result._id
+    });
+  });
 };
 
 // Posts - Get all posts
