@@ -34,8 +34,16 @@ export class PostsService {
       });
   }
 
+  getPost(id: string) {
+    return {...this.postsList.find(p => p.id === id)};
+  }
+
   getPostUpdateListener() {
     return this.postsUpdate.asObservable();
+  }
+
+  updatePost(post: IPost) {
+
   }
 
   addPost(post: IPost) {
