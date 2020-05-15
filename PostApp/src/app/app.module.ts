@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { MaterialModule } from './angularmaterial/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -20,6 +22,7 @@ import { HeaderComponent } from './components/header/header.component';
     PostListComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
