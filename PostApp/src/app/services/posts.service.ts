@@ -13,6 +13,7 @@ export class PostsService {
 
   constructor(private http: HttpClient) {}
 
+  // Posts - get all posts
   getPosts() {
     const url = 'http://localhost:3000/api/posts';
     this.http
@@ -38,6 +39,7 @@ export class PostsService {
     return this.postsUpdate.asObservable();
   }
 
+  // Post - add a new post
   addPost(post: IPost) {
     const url = 'http://localhost:3000/api/posts';
 
@@ -48,6 +50,7 @@ export class PostsService {
     });
   }
 
+  // Post - delete a post
   deletePost(postID: any) {
     const url = 'http://localhost:3000/api/posts/' + postID;
 
