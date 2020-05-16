@@ -21,19 +21,6 @@ exports.getAllPosts = async (req, res) => {
   });
 };
 
-// Posts - Update a post
-exports.updatePost = async (req, res) => {
-  const post = new Post({
-    _id: req.params.id,
-    title: req.body.title,
-    content: req.body.content
-  });
-
-  Post.updateOne({ _id: req.params.id }, post).then(result => {
-    res.status(200).json('Post has been updateded');
-  });
-};
-
 // Posts - Delete a post
 exports.deletePost = async (req, res) => {
   const postID = req.params.id;
