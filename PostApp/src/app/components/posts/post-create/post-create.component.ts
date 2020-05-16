@@ -30,17 +30,22 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  onAddPost(formData: NgForm) {
-    if (formData.invalid) {
-      return;
-    }
-
+  onSavePost(formData: NgForm) {
     const post: IPost = {
       title: formData.value.title,
       content: formData.value.content,
     };
 
-    this.postService.addPost(post);
+    if (formData.invalid) {
+      return;
+    }
+
+    if (this.mode === 'create') {
+      this.postService.addPost(post);
+    } else {
+      this.postService.updatePost(this.postId, post);
+    }
+
     formData.resetForm();
   }
 }

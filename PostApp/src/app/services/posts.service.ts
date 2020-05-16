@@ -57,8 +57,9 @@ export class PostsService {
   }
 
   // Post Service - Update an existing post
-  updatePost(post: IPost) {
-
+  updatePost(postID: any, post: IPost) {
+    const url = 'http://localhost:3000/api/posts/' + postID;
+    this.http.put(url, post).subscribe();
   }
 
   // Post Service - Delete a post
