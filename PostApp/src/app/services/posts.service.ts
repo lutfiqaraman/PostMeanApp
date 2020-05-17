@@ -39,6 +39,12 @@ export class PostsService {
     return this.postsUpdate.asObservable();
   }
 
+  // Post - get a post
+  getPost(postId: string) {
+    return {...this.postsList.find(p => p.id === postId)};
+  }
+
+
   // Post - add a new post
   addPost(post: IPost) {
     const url = 'http://localhost:3000/api/posts';
