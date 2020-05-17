@@ -21,11 +21,26 @@ exports.getAllPosts = async (req, res) => {
   });
 };
 
+// Posts - update a post
+exports.updatePost = async (req, res) => {
+  const postID = req.params.id;
+  
+  const post = {
+    _id: postID,
+    title: req.body.title,
+    content: req.body.content
+  };
+
+  Post.updateOne({ _id: postID }, post).then((result) => {
+    res.status(200).json(result);
+  })
+}
+
 // Posts - Delete a post
 exports.deletePost = async (req, res) => {
   const postID = req.params.id;
   
-  Post.deleteOne({ _id: postID }).then((result) => {
+  await Post.deleteOne({ _id: postID }).then((result) => {
     res.status(200).json(result);
   });
 }

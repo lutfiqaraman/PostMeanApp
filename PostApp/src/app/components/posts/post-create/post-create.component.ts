@@ -13,8 +13,7 @@ import { PostsService } from 'src/app/services/posts.service';
 export class PostCreateComponent implements OnInit {
   private mode = 'create';
   private postId: string;
-  private post: IPost;
-
+  public post: IPost;
 
   constructor(
     public postService: PostsService,
@@ -34,17 +33,24 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  onAddPost(formData: NgForm) {
-    if (formData.invalid) {
-      return;
-    }
-
+  onCreateEditPost(formData: NgForm) {
     const post: IPost = {
       title: formData.value.title,
       content: formData.value.content
     };
 
-    this.postService.addPost(post);
+    if (formData.invalid) {
+      return;
+    }
+
+    if (this.mode === 'create') {
+      this.postService.addPost(post);
+    }
+
+    if (this.mode === 'edit') {
+      this.postService.updatePost(this.postId, post);
+    }
+
     formData.resetForm();
   }
 }
