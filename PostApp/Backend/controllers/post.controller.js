@@ -14,6 +14,17 @@ exports.create = async (req, res) => {
   });
 };
 
+// Posts - Get a post
+exports.getPost = async (req, res) => {
+  Post.findById(req.params.id).then(post => {
+    if (post) {
+      res.status(200).json(post);
+    } else {
+      res.status(404).json('post is not found');
+    }
+  });
+};
+
 // Posts - Get all posts
 exports.getAllPosts = async (req, res) => {
   await Post.find().then(data => {

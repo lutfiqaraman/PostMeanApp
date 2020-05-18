@@ -44,7 +44,8 @@ export class PostsService {
 
   // Post - get a post
   getPost(postId: string) {
-    return this.postsList.find((p) => p.id === postId);
+    this.url = 'http://localhost:3000/api/posts/' + postId;
+    return this.http.get<IPost>(this.url);
   }
 
   // Post - add a new post
@@ -61,7 +62,15 @@ export class PostsService {
   // Post - update a post
   updatePost(postId: string, post: IPost) {
     this.url = 'http://localhost:3000/api/posts/' + postId;
-    this.http.put(this.url, post).subscribe();
+    this.http.put(this.url, post).subscribe((response) => {
+      const updatePosts = [...this.postsList];
+      const oldPostIndex = updatePosts.findIndex(p => p.id === post.id);
+
+      updatePosts[oldPostIndex] = post;
+
+      this.postsList = updatePosts;
+      this.postsUpdate.next([...this.postsList]);
+    });
   }
 
   // Post - delete a post
