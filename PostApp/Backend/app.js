@@ -4,17 +4,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-// Connect to database
-const mongodb = require("./db/dbconn");
-mongodb.connection();
-
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Connect to database
+const mongodb = require("./db/dbconn");
+mongodb.connection();
 
-require("./routes/post.route")(app);
+// Posts - route
+const postsRouter = require("./routes/post.route");
+app.use(postsRouter);
 
 module.exports = app;
