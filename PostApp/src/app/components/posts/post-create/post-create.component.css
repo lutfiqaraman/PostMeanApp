@@ -2,6 +2,10 @@ mat-form-field, textarea {
   width: 100%;
 }
 
-.savepost {
+.postbutton {
   margin: 1rem auto;
+}
+
+input[type="file"] {
+  visibility: hidden;
 }

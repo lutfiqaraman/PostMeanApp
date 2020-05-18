@@ -10,6 +10,10 @@
       <textarea matInput rows="4" name="content" [ngModel]='post?.content' required #content="ngModel"></textarea>
       <mat-error *ngIf="content.invalid">Content is required</mat-error>
     </mat-form-field>
-    <button class="savepost" mat-raised-button color="primary" type="submit">Save Post</button>
+    <div class="postbutton">
+      <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+      <input type="file" #filePicker>
+    </div>
+    <button class="postbutton" mat-raised-button color="primary" type="submit">Save Post</button>
   </form>
 </mat-card>
