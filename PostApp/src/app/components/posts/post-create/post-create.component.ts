@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { IPost } from '../../../models/post.model';
@@ -8,19 +8,28 @@ import { PostsService } from 'src/app/services/posts.service';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.css']
+  styleUrls: ['./post-create.component.css'],
 })
 export class PostCreateComponent implements OnInit {
   private mode = 'create';
   private postId: string;
   public post: IPost;
+  postForm: FormGroup;
 
   constructor(
     public postService: PostsService,
     public router: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.postForm = new FormGroup({
+      title: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      content: new FormControl(null, {
+        validators: [Validators.required]
+      })
+    });
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('id')) {
         this.mode = 'edit';
@@ -29,8 +38,13 @@ export class PostCreateComponent implements OnInit {
           this.post = {
             id: postData._id,
             title: postData.title,
-            content: postData.content
+            content: postData.content,
           };
+
+          this.postForm.setValue({
+            title: this.post.title,
+            content: this.post.content
+          });
         });
       } else {
         this.mode = 'create';
@@ -39,13 +53,13 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  onCreateEditPost(formData: NgForm) {
+  onCreateEditPost() {
     const post: IPost = {
-      title: formData.value.title,
-      content: formData.value.content
+      title: this.postForm.value.title,
+      content: this.postForm.value.content,
     };
 
-    if (formData.invalid) {
+    if (this.postForm.invalid) {
       return;
     }
 
@@ -57,6 +71,6 @@ export class PostCreateComponent implements OnInit {
       this.postService.updatePost(this.postId, post);
     }
 
-    formData.resetForm();
+    this.postForm.reset();
   }
 }
