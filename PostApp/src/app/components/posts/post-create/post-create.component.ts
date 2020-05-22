@@ -15,6 +15,7 @@ export class PostCreateComponent implements OnInit {
   private postId: string;
   public post: IPost;
   postForm: FormGroup;
+  imagePreview: string;
 
   constructor(
     public postService: PostsService,
@@ -29,8 +30,11 @@ export class PostCreateComponent implements OnInit {
       content: new FormControl(null, {
         validators: [Validators.required],
       }),
-      image: new FormControl(null, { validators: [Validators.required] }),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+      }),
     });
+
     this.router.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('id')) {
         this.mode = 'edit';
@@ -44,7 +48,7 @@ export class PostCreateComponent implements OnInit {
 
           this.postForm.setValue({
             title: this.post.title,
-            content: this.post.content,
+            content: this.post.content
           });
         });
       } else {
@@ -60,8 +64,12 @@ export class PostCreateComponent implements OnInit {
     this.postForm.patchValue({ image: file });
     this.postForm.get('image').updateValueAndValidity();
 
-    console.log('FILE: ' + file);
-    console.log('FORM: ' + this.postForm);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result.toString();
+    };
+
+    reader.readAsDataURL(file);
   }
 
   onCreateEditPost() {
