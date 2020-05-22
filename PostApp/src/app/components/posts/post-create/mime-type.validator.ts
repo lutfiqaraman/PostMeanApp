@@ -1,3 +1,1 @@
-export const mimeType = () => {
-  
-}
+export const mimeType = () => {};
