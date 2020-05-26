@@ -17,8 +17,9 @@ export class PostsService {
   constructor(private http: HttpClient, private router: Router) {}
 
   // Posts - get all posts
-  getPosts() {
-    this.url = 'http://localhost:3000/api/posts';
+  getPosts(postsPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
+    this.url = 'http://localhost:3000/api/posts' + queryParams;
 
     this.http
       .get<IPost[]>(this.url)
