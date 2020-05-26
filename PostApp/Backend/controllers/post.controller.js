@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
 
 // Posts - Get a post
 exports.getPost = async (req, res) => {
-  Post.findById(req.params.id).then(post => {
+  await Post.findById(req.params.id).then(post => {
     if (post) {
       res.status(200).json(post);
     } else {
@@ -27,7 +27,17 @@ exports.getPost = async (req, res) => {
 
 // Posts - Get all posts
 exports.getAllPosts = async (req, res) => {
-  await Post.find().then(data => {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+
+  if (pageSize && currentPage) {
+    postQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+
+  await postQuery.find().then(data => {
     res.status(200).json(data);
   });
 };
