@@ -37,7 +37,7 @@ exports.getAllPosts = async (req, res) => {
       .limit(pageSize);
   }
 
-  await postQuery.find().then(data => {
+  await postQuery.then(data => {
     res.status(200).json(data);
   });
 };
